@@ -1,24 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
-<body>
-    Version 1
-    now version 1 only ok?
-    
-    Version 2
-    now version 2 only ok?
+    <style>
+      .video_preview {
+        display: inline-block;
+        width: 300px;
+        vertical-align: top;
+      }
 
-    Version 3
-    now version 3 only ok?
-    
-    Version 4
-    now version 4 only ok?
+      .thumbnail {
+        width: 300px;
+        display: block;
+      }
+      .video_title {
+        /* width: 300px; */
+        margin-top: 0;
+      }
+      .horizontal_column1 {
+        display: inline-block;
+        width: 50px;
+        vertical-align: top;
+      }
+      .horizontal_column2{
+        display: inline-block;
+        width: 200px;
+        vertical-align: top;
 
-    Version 5
-    now version 5 only ok?
-</body>
+      }
+      .profile_picture{
+        width: 72%;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="video_preview">
+
+      <div>
+        <img
+        class="thumbnail"
+        src="data:image/png;base64,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"
+        alt=""
+        />
+      </div>
+      <div>
+        <div class="horizontal_column1">
+          <img class="profile_picture" src="https://code.visualstudio.com/assets/branding/app-icon.png" alt="">
+        </div>
+        <div class="horizontal_column2">
+          <p class="video_title">Talking tech and AI with Google CEO Sundar Pichai!</p>
+          <p class="video_author">Manikanta</p>
+          <p class="video_stats">3.5 M views &#183 6 months ago</p>
+        </div>
+      </div>
+      
+    </div>
+
+
+    <!-- <div class="video_preview">
+      <img
+      class="thumbnail"
+        src="data:image/png;base64,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"
+        alt=""
+      />
+      <p class="video_title">Talking tech and AI with Google CEO Sundar Pichai!</p>
+      <p class="video_author">Manikanta</p>
+      <p class="video_stats">3.5 M views &#183 6 months ago</p>
+    </div> -->
+    
+  </body>
 </html>
