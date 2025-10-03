@@ -34,9 +34,11 @@
         width: 72%;
       }
     </style>
+
+    
   </head>
   <body>
-    <div class="video_preview">
+    <div id="root" class="video_preview">
 
       <div>
         <img
@@ -55,9 +57,75 @@
           <p class="video_stats">3.5 M views &#183 6 months ago</p>
         </div>
       </div>
+      <ul>
+        <li class="listname">first node</li>
+        <li class="listname">second node</li>
+      </ul>
       
     </div>
 
+    <script>
+      // console.log(document.body)
+      // using DFS
+      function dfsOnHTMLNodes(node) {
+        console.log(node.tagName);
+        for(let i = 0; i < node.children.length; i++) {
+          dfsOnHTMLNodes(node.children[i]);
+        }
+      }
+
+      // Iterative using stack for DFS
+      function dfsUsingStack(node) {
+        const stack = [node]; // Initialize stack with the starting node
+        while(stack.length > 0) {
+          const currentNode = stack.pop(); // Get the last element added
+          console.log(currentNode.tagName); // Process the currentNode
+
+          for(let i = currentNode.children.length - 1; i >= 0; i--) {
+            stack.push(currentNode.children[i]);
+          }
+        }
+      }
+
+      // BFS
+      function bfsOnHtmlNodes(node) {
+      // Use a JavaScript array as a queue
+      const queue = [node];
+
+      while (queue.length > 0) {
+        const currentNode = queue.shift(); // Dequeue the first element (FIFO)
+        console.log(currentNode.tagName);
+
+        // Enqueue all children of the current node
+          for (const child of currentNode.children) {
+            queue.push(child);
+          }
+        }
+      }
+      // dfsOnHTMLNodes(document.body);
+      // console.log("----------------------------------")
+      // dfsUsingStack(document.body);
+      // console.log("----------------------------------")
+      // bfsOnHtmlNodes(document.body);
+
+      // Find all the elements
+      // Find all elements with the class 'my-class'
+      const elements = document.getElementsByClassName('listname');
+
+      // You can iterate over the collection
+      for (let i = 0; i < elements.length; i++) {
+        console.log(elements[i]);
+      }
+
+      // Find all elements with the class 'my-class'
+      // const elements1 = document.querySelectorAll('.listname');
+      const elements1 = document.querySelectorAll('#root');
+
+      // You can use forEach() on the NodeList
+      elements1.forEach(element => {
+        console.log(element);
+      });
+    </script>
 
     <!-- <div class="video_preview">
       <img
@@ -72,3 +140,7 @@
     
   </body>
 </html>
+
+
+<!-- Finding All Elements with a Specific Class -->
+<!-- To find all elements with a specific class in the DOM, you can use the document.getElementsByClassName() or document.querySelectorAll() methods. The first returns a live HTMLCollection, while the second returns a static NodeList. -->
