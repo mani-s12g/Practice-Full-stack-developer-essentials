@@ -1,19 +1,21 @@
-import React, { useState } from "react";
-import Child1 from "./Child1";
+import React, { useState } from 'react';
+import Child from './Child1';
 
 function Parent() {
-  const [dataFromChild, setDataFromChild] = useState("");
-  const handleDataFromChild = (data) => {
-    setDataFromChild(data);
-  }
+  const [childData, setChildData] = useState('');
+
+  const handleChildData = (data) => {
+    setChildData(data);
+  };
 
   return (
-    <div className="parent">
-      Parent
-
-      Child's data - {dataFromChild}
-      <Child1 prop1={"ok prop1"} sendDataToParent={handleDataFromChild} />
-    </div>
+    <>
+      <div style={{ border: '1px solid black' }}>
+        <h1>Parent Container</h1>
+        <h4>{childData}</h4>
+        <Child parentData={'Parent says hello!'} onClickFn={handleChildData} />
+      </div>
+    </>
   );
 }
 

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Simple Hamburger Menu</title>
+    <style>
+      body {
+        margin: 0;
+      }
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 20px;
+        background: #333;
+        color: white;
+      }
+      nav {
+        display: none;
+        flex-direction: column;
+        background: #444;
+      }
+      nav a {
+        color: white;
+        padding: 10px 20px;
+        text-decoration: none;
+      }
+      nav a:hover {
+        background: #555;
+      }
+      /* hamburger icon */
+      .hamburger {
+        display: block;
+        cursor: pointer;
+      }
+      .hamburger div {
+        width: 25px;
+        height: 3px;
+        margin: 5px 0;
+        background-color: aliceblue;
+      }
+      /* show menu when checkbox checked */
+      #menu-toggle {
+        display: none;
+      }
+      #menu-toggle:checked + nav {
+        display: flex;
+      }
+
+      /* larger screens: show nav normally */
+      @media (min-width: 768px) {
+        .hamburger {
+          display: none;
+        }
+        nav {
+          display: flex;
+          flex-direction: row;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Logo</h1>
+      <label for="menu-toggle" class="hamburger">
+        <div></div>
+        <div></div>
+        <div></div>
+      </label>
+    </header>
+
+    <input type="checkbox" id="menu-toggle" />
+    <nav>
+      <a href="#">Home</a><a href="">About</a><a href="">Services</a
+      ><a href="">Contact</a>
+    </nav>
+
+    <main style="padding: 20px">
+      <p>Resize the window to see the hamburger menu in action.</p>
+    </main>
+  </body>
+</html>

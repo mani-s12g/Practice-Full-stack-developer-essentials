@@ -3,7 +3,10 @@
 
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useGetUsersQuery } from "../features/api/usersApi";
+import {
+  useGetUsersQuery,
+  useGetUserByIdQuery,
+} from "../features/api/usersApi";
 import {
   setFilterText,
   setSortOrder,
@@ -12,8 +15,10 @@ import {
 } from "../features/user/userSlice";
 
 function UserList() {
+  const userId = 1;
   // --- A. DATA FETCHING (RTK Query) ---
   const { data: users, isLoading, isError } = useGetUsersQuery();
+  const { data: randomUSer, isLoadingUser } = useGetUserByIdQuery(userId);
 
   // --- B. LOCAL STATE (Redux Toolkit Slice) ---
   const dispatch = useDispatch();
@@ -31,6 +36,8 @@ function UserList() {
     );
 
     // 2. Sorting (Manipulation of Array/List based on primitive state)
+    // return Array.from(filtered).sort((a, b) => {
+    // or
     return [...filtered].sort((a, b) => {
       if (sortOrder === "name_asc") {
         return a.name.localeCompare(b.name);
@@ -40,11 +47,23 @@ function UserList() {
   }, [users, filterText, sortOrder]);
 
   if (isLoading) return <div>Loading users...</div>;
+  if (isLoadingUser) return <div>Loading user...</div>;
   if (isError) return <div>Error fetching users!</div>;
 
   return (
     <div>
       <h2>User Dashboard</h2>
+
+      <h3>User By Id</h3>
+      {randomUSer && (
+        <>
+          <p>{randomUSer.id}</p>
+          <h4>{randomUSer.name}</h4>
+          <h4>{randomUSer.phone}</h4>
+          <h4>{randomUSer.username}</h4>
+          <h4>{randomUSer.website}</h4>
+        </>
+      )}
 
       {/* Input for Primitive State Manipulation (filterText) */}
       <input
