@@ -1,0 +1,98 @@
+
+// src / redux / store / index.js
+redux , redux-thunk
+-------------------
+// create store & apply the redux thunk middleware
+// applyMiddleware - Is a redux utility, that chains
+middlewares together
+
+import {createStore, applyMiddleware} from "redux"
+import {thunk} from "redux-thunk"
+import rootReducer from "src/redux/reducers/index.js"
+
+const store = createStore(
+   rootReducer,
+   applyMiddleware(thunk)
+)
+
+export default store
+
+
+
+// src / redux / actions / types.js
+// Action types
+export const FETCH_USER_REQUEST = 'FETCH_USER_REQUEST'
+export const FETCH_USER_SUCCESS = 'FETCH_USER_SUCCESS'
+
+// src / redux / actions / userActions.js
+// Action Object
+// Action Creator function
+
+import {FETCH_USER_REQUEST , FETCH_USER_SUCCESS } from './types'
+
+// API Call ( loading state )
+export const fetchUserRequest = () => ({
+   type: FETCH_USER_REQUEST,
+})
+
+// API Success ( save user data )
+export const fetchUserSuccess = ( user ) => ({
+   type: FETCH_USER_SUCCESS,
+   payload: user
+})
+
+
+
+// Asynchronous Thunk Action Creator
+export const fetchUser = (userId) => {
+    return async (dispatch) => {
+        dispatch(fetchUserRequest());
+	try {
+	    const res = await fetch();
+	    if(!res.ok) return throw new Error('Failed to fetch')
+	    const data = await res.json()
+	    dispatch(fetchUserSuccess(data))
+	} catch (e) {
+            dispatch(fetchUSerFailure(e.message))
+	}
+    }
+}
+
+
+
+
+// User Container
+import {connect} from 'react-redux'
+import UserDisplay from 'src/components/UserDisplay'
+import {fetchUser} from 'src/redux/actions/userActions.js'
+
+const UserContainer = ( { user, loading, error, fetchUser} ) => {
+    useEffect(() => {
+        fetchUser(1);
+    }, [fetchUser]);
+
+    if(loading) return <p>Loading... </p>
+    if(error) return <p>Error: {error}</p>
+    return (
+        <UserDisplay user = { user }>
+    )
+}
+
+
+// connects state slices to component props
+   const mapStateToProps = (state) => ({
+   	user: state.user.user,
+	loading: state.user.loading,
+	error: state.user.error
+   });
+
+// connects action creators to props
+// connect functionality automatically wraps fetchUser 
+// in dispatch()
+
+const mapDispatchToProps = {
+    fetchUser,
+};
+
+// connect UserContainer to redux store
+export default connect(mapStateToProps, mapDispatchToProps) (UserContainer);

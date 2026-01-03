@@ -1,7 +1,7 @@
 // (Container Component)
 
 import React, { useEffect } from 'react';
-import {connect} from "react-redux";
+import { connect } from "react-redux";
 import { fetchUser } from '../redux/actions/userActions';
 import UserDisplay from '../components/UserDisplay';
 

@@ -1,4 +1,4 @@
-import {combineReducers} from "redux";
+import { combineReducers } from "redux";
 import userReducer from "./userReducer";
 
 // Combine all feature reducers into a single root reducer

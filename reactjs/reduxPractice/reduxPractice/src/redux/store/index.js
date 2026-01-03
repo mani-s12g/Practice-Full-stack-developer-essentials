@@ -1,5 +1,5 @@
-import {createStore, applyMiddleware} from "redux"
-import {thunk} from "redux-thunk"; // Import the middleware
+import { createStore, applyMiddleware } from "redux"
+import { thunk } from "redux-thunk"; // Import the middleware
 import rootReducer from "../reducers"
 
 // Create the store and apply the Redux Thunk middleware
