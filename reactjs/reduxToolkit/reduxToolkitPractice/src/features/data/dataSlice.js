@@ -11,7 +11,10 @@ const initialState = {
       title: "Draft",
     },
   ],
-  settings: { theme: "light", notifications: true },
+  settings: {
+    theme: "light",
+    notifications: true,
+  },
 };
 
 const dataSlice = createSlice({
@@ -43,14 +46,17 @@ const dataSlice = createSlice({
     },
     // 4. UPDATING an Item in an Array
     updatePostTitle: (state, action) => {
-        const postToUpdate = state.posts.find(post => post.id == action.payload.id);
-        if(postToUpdate) {
-          // 🛑 RTK/Immer allows direct property assignment on the item!
-          postToUpdate.title = action.payload.newTitle;
-        }
-    }
+      const postToUpdate = state.posts.find(
+        (post) => post.id == action.payload.id
+      );
+      if (postToUpdate) {
+        // 🛑 RTK/Immer allows direct property assignment on the item!
+        postToUpdate.title = action.payload.newTitle;
+      }
+    },
   },
 });
 
-export const { addPost, toggleNotifications, deletePost, updatePostTitle } = dataSlice.actions;
+export const { addPost, toggleNotifications, deletePost, updatePostTitle } =
+  dataSlice.actions;
 export default dataSlice.reducer;

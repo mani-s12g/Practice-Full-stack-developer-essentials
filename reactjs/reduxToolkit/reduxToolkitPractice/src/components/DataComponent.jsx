@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 // Import the actions from the slice file
-import { addPost, toggleNotifications } from "./features/data/dataSlice";
+import { addPost, toggleNotifications } from "../features/data/dataSlice";
 
 function DataComponent() {
   // Read state using useSelector
@@ -39,14 +39,14 @@ function DataComponent() {
         <p>Posts Count: {posts.length} </p>
 
         {/* Object Action */}
-        <p>Notifications: {settings.notifications  ? "ON" : "OFF"}</p>
+        <p>Notifications: {settings.notifications ? "ON" : "OFF"}</p>
         <button onClick={handleToggle}>Toggle Notifications (RTK)</button>
 
         <p>Last 3 Posts:</p>
         <ul>
-            {posts.slice(-3).map(post => (
-                <li key={post.id}>{post.title}</li>
-            ))}
+          {posts.slice(-3).map(post => (
+            <li key={post.id}>{post.title}</li>
+          ))}
         </ul>
       </div>
     </>

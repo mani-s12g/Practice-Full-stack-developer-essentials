@@ -15,20 +15,21 @@ import {
 } from "../features/user/userSlice";
 
 function UserList() {
+  const dispatch = useDispatch();
   const userId = 1;
+
   // --- A. DATA FETCHING (RTK Query) ---
   const { data: users, isLoading, isError } = useGetUsersQuery();
   const { data: randomUSer, isLoadingUser } = useGetUserByIdQuery(userId);
 
   // --- B. LOCAL STATE (Redux Toolkit Slice) ---
-  const dispatch = useDispatch();
   const { filterText, sortOrder, selectedUser } = useSelector(
     (state) => state.user
   );
 
   // --- C. MANIPULATION OF ARRAYS/LISTS (Filtering and Sorting) ---
   const filteredAndSortedUsers = React.useMemo(() => {
-    console.log("using useMemo...");
+    // console.log("using useMemo...");
     if (!users) return [];
     // 1. Filtering (Manipulation of Array/List based on primitive state)
     const filtered = users.filter((user) =>
@@ -44,6 +45,7 @@ function UserList() {
       }
       return b.name.localeCompare(a.name);
     });
+    // return filtered;
   }, [users, filterText, sortOrder]);
 
   if (isLoading) return <div>Loading users...</div>;

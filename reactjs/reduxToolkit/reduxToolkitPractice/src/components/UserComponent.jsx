@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { createNewUser, fetchUserById } from "./features/user/userSlice";
+import { createNewUser, fetchUserById } from "../features/user/userSlice";
 import { useEffect } from "react";
 
 function UserComponent() {
@@ -34,7 +34,7 @@ function UserComponent() {
   const createNewUserFn = () => {
     const newUser = {
       name: "Mani",
-      userName: "TheOne",
+      userName: "The One",
       email: "mani.s12g@gmail.com",
     };
     dispatch(createNewUser(newUser));
@@ -81,3 +81,19 @@ function UserComponent() {
 }
 
 export default UserComponent;
+
+// The useEffect hook in React, when combined with Redux Toolkit (RTK), allows for dispatching asynchronous actions, such as fetching data from an API, when a component mounts or when specific dependencies change.
+// In the provided code snippet:
+// JavaScript
+
+// useEffect(() => {
+//   // Dispatch the thunk directly!
+//   dispatch(fetchUserById(1)); // Fetch user with ID 1
+// }, [dispatch]);
+// useEffect(() => { ... }, [dispatch]): This sets up an effect that will run after the component renders. The empty dependency array [] would typically mean it runs only once after the initial render. However, including dispatch in the dependency array is a common practice when using useDispatch from react-redux. While dispatch is generally stable and won't cause re-renders, including it explicitly can help avoid linting warnings and ensures the effect is re-run if dispatch itself were to change (which is highly unlikely).
+// dispatch(fetchUserById(1)): This is the core action.
+// dispatch is a function provided by react-redux's useDispatch hook, allowing you to send actions to the Redux store.
+// fetchUserById(1) is an async thunk created using RTK's createAsyncThunk. When dispatched, this thunk will:
+// Initiate an asynchronous operation (e.g., an API call to fetch user data for ID 1).
+// Automatically dispatch pending, fulfilled, or rejected actions based on the outcome of the asynchronous operation. These actions update the Redux store's state, indicating loading status, success data, or error information.
+// In essence, this useEffect block ensures that when the component mounts, it immediately dispatches an action to fetch user data for a specific ID, and the Redux store will be updated accordingly as the data fetching progresses. This is a standard pattern for initiating data fetching in React components using Redux Toolkit.
