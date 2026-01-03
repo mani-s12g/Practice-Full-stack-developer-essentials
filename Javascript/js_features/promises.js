@@ -17,7 +17,6 @@ const myPromise = new Promise((resolve, reject) => {
 //     .then(result => console.log(result))
 //     .catch(error => console.log(error))
 
-
 // 1. Using Fetch API with Promises
 // GET request
 // fetch('https://jsonplaceholder.typicode.com/users/1')
@@ -34,7 +33,6 @@ const myPromise = new Promise((resolve, reject) => {
 //         console.log("error:", error);
 //     })
 
-
 // POST request
 // fetch('https://jsonplaceholder.typicode.com/posts', {
 //   method: 'POST',
@@ -50,8 +48,6 @@ const myPromise = new Promise((resolve, reject) => {
 //   .then(response => response.json())
 //   .then(data => console.log('data:', data))
 //   .catch(error => console.log('error:', error));
-
-
 
 // 2. Using Async/Await (Modern Approach)
 // GET request
@@ -94,7 +90,6 @@ const myPromise = new Promise((resolve, reject) => {
 // }
 // createPost();
 
-
 // Using XMLHttpRequest (Old Method)
 // GET request
 // const xhr = new XMLHttpRequest();
@@ -133,7 +128,6 @@ const myPromise = new Promise((resolve, reject) => {
 
 // End of Using XMLHttpRequest (Old Method)
 
-
 // Using Axios Library
 // First install: npm install axios
 // or include via CDN: <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
@@ -170,7 +164,6 @@ const myPromise = new Promise((resolve, reject) => {
 //   }
 // }
 // fetchWithAxios();
-
 
 // Promise Chaining for Sequential Requests
 // Fetch user, then fetch their posts
@@ -211,7 +204,7 @@ const myPromise = new Promise((resolve, reject) => {
 //       fetch('https://jsonplaceholder.typicode.com/posts/1').then(r => r.json()),
 //       fetch('https://jsonplaceholder.typicode.com/comments/1').then(r => r.json())
 //     ]);
-    
+
 //     console.log({ user, post, comment });
 //   } catch (error) {
 //     console.error('Error:', error);
@@ -229,3 +222,63 @@ const myPromise = new Promise((resolve, reject) => {
 // Avoid callback hell by using Promises or async/await
 
 // The modern standard is Fetch with async/await for most use cases!
+
+// Important
+// Custom Promise.all() Implementation
+
+// 🔹 Behavior:
+// Takes an array of promises → resolves when all resolve → rejects if any reject.
+
+function myPromiseAll(promises) {
+  return new Promise((resolve, reject) => {
+    if (!Array.isArray(promises))
+      return reject(new TypeError("Arguments must be an array"));
+
+    let results = [];
+    let completed = 0;
+
+    if (promises.length === 0) {
+      resolve(results);
+      return;
+    }
+
+    promises.forEach((p, i) => {
+      Promise.resolve(p)
+        .then((val) => {
+          results[i] = val;
+          completed++;
+          if (completed == promises.length) {
+            resolve(results);
+          }
+        })
+        .catch(reject);
+    });
+  });
+}
+
+// const p1 = Promise.resolve(10);
+// const p2 = Promise.resolve(20);
+// const p3 = Promise.resolve(30);
+
+// myPromiseAll([p1, p2, p3]).then(console.log);
+
+// Implement Promise.allSettled
+function promiseAllSettled(promises) {
+  return Promise.all(
+    promises.map(p =>
+      Promise.resolve(p)
+        .then((value) => ({ status: "fulfilled", value }))
+        .catch((reason) => ({ status: "rejected", reason }))
+    )
+  );
+}
+
+
+const p1 = Promise.resolve(10);
+const p2 = Promise.reject(20);
+const p3 = Promise.resolve(30);
+
+promiseAllSettled([p1, p2, p3]).then(console.log);
+
+
+// Retry with Exponential Backoff

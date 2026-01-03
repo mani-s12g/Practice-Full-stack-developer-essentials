@@ -18,6 +18,8 @@ let printName = printFullName.bind(name, "Bengaluru");
 printName("karnataka", "India");
 
 
+// Important *
+// Implement Function.prototype.myBind()
 // custom bind method - myBind() fn
 Function.prototype.myBind = function (...args) {
     // over here this is printName method
@@ -41,3 +43,25 @@ Function.prototype.myBind = function (...args) {
 // printName2("India");
 let printName2 = printFullName.myBind(name, "Bengaluru");
 printName2("karnataka", "India"); // multiple args2
+
+
+
+
+
+// https://chatgpt.com/c/69080662-ba08-8320-bd28-340315cd117f
+// Implement Function.prototype.myBind()
+// Function.prototype.myBind = function (context, ...args) {
+//   const fn = this;
+//   return function (...newArgs) {
+//     return fn.apply(context, [...args, ...newArgs]);
+//   };
+// };
+
+// // Example
+// function sayHello(greeting) {
+//   console.log(`${greeting}, ${this.name}`);
+// }
+
+// const user = { name: 'Bob' };
+// const bound = sayHello.myBind(user, 'Hi');
+// bound(); // Hi, Bob

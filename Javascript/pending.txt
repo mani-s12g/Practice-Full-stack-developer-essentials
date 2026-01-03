@@ -1,0 +1,254 @@
+1. Event Emitter
+
+class EventEmitter {
+  constructor() {
+    this.events = {};
+  }
+  
+  on(event, callback) {
+    if (!this.events[event]) {
+      this.events[event] = [];
+    }
+    this.events[event].push(callback);
+  }
+  
+  off(event, callback) {
+    if (!this.events[event]) return;
+    this.events[event] = this.events[event].filter(cb => cb !== callback);
+  }
+  
+  emit(event, ...args) {
+    if (!this.events[event]) return;
+    this.events[event].forEach(callback => callback(...args));
+  }
+  
+  once(event, callback) {
+    const onceWrapper = (...args) => {
+      callback(...args);
+      this.off(event, onceWrapper);
+    };
+    this.on(event, onceWrapper);
+  }
+}
+
+
+
+2. LRU Cache
+
+class LRUCache {
+  constructor(capacity) {
+    this.capacity = capacity;
+    this.cache = new Map();
+  }
+  
+  get(key) {
+    if (!this.cache.has(key)) return -1;
+    const val = this.cache.get(key);
+    this.cache.delete(key);
+    this.cache.set(key, val);
+    return val;
+  }
+  
+  put(key, value) {
+    if (this.cache.has(key)) {
+      this.cache.delete(key);
+    }
+    this.cache.set(key, value);
+    if (this.cache.size > this.capacity) {
+      this.cache.delete(this.cache.keys().next().value);
+    }
+  }
+}
+
+
+
+3. Retry with Exponential backoff
+
+async function retry(fn, retries = 3, delay = 1000) {
+  try {
+    return await fn();
+  } catch (error) {
+    if (retries === 0) throw error;
+    await new Promise(resolve => setTimeout(resolve, delay));
+    return retry(fn, retries - 1, delay * 2);
+  }
+}
+
+
+4. Async Task Queue with Concurrency Limit
+
+class TaskQueue {
+  constructor(concurrency) {
+    this.concurrency = concurrency;
+    this.running = 0;
+    this.queue = [];
+  }
+  
+  async push(task) {
+    while (this.running >= this.concurrency) {
+      await new Promise(resolve => this.queue.push(resolve));
+    }
+    
+    this.running++;
+    try {
+      return await task();
+    } finally {
+      this.running--;
+      const resolve = this.queue.shift();
+      if (resolve) resolve();
+    }
+  }
+}
+
+
+
+5. Flatten Array (Deep Flatten)
+
+function flatten(arr) {
+  return arr.reduce((acc, val) => 
+    Array.isArray(val) ? acc.concat(flatten(val)) : acc.concat(val), 
+  []);
+}
+
+// Alternative
+function flattenIterative(arr) {
+  const stack = [...arr];
+  const result = [];
+  while (stack.length) {
+    const next = stack.pop();
+    if (Array.isArray(next)) {
+      stack.push(...next);
+    } else {
+      result.push(next);
+    }
+  }
+  return result.reverse();
+}
+
+
+6. Get/Set Nested Property by Path
+
+function get(obj, path, defaultValue) {
+  const keys = path.split('.');
+  let result = obj;
+  for (let key of keys) {
+    result = result?.[key];
+    if (result === undefined) return defaultValue;
+  }
+  return result;
+}
+
+function set(obj, path, value) {
+  const keys = path.split('.');
+  const lastKey = keys.pop();
+  const lastObj = keys.reduce((o, k) => o[k] = o[k] || {}, obj);
+  lastObj[lastKey] = value;
+  return obj;
+}
+
+
+7. Virtual DOM & Diffing
+Simple Virtual DOM Diff
+
+function diff(oldNode, newNode) {
+  // Different types
+  if (typeof oldNode !== typeof newNode) {
+    return { type: 'REPLACE', newNode };
+  }
+  
+  // Text nodes
+  if (typeof oldNode === 'string') {
+    if (oldNode !== newNode) {
+      return { type: 'TEXT', newNode };
+    }
+    return null;
+  }
+  
+  // Tag changed
+  if (oldNode.tag !== newNode.tag) {
+    return { type: 'REPLACE', newNode };
+  }
+  
+  // Check props and children
+  const patches = {
+    type: 'UPDATE',
+    props: diffProps(oldNode.props, newNode.props),
+    children: diffChildren(oldNode.children, newNode.children)
+  };
+  
+  return patches;
+}
+
+
+
+8. String & Search Algorithms
+Implement indexOf
+
+function indexOf(str, substr) {
+  if (substr.length === 0) return 0;
+  for (let i = 0; i <= str.length - substr.length; i++) {
+    let match = true;
+    for (let j = 0; j < substr.length; j++) {
+      if (str[i + j] !== substr[j]) {
+        match = false;
+        break;
+      }
+    }
+    if (match) return i;
+  }
+  return -1;
+}
+
+
+9. React-Specific Patterns
+   a. Custom useDebounce Hook
+
+function useDebounce(value, delay) {
+  const [debouncedValue, setDebouncedValue] = useState(value);
+  
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedValue(value);
+    }, delay);
+    
+    return () => clearTimeout(handler);
+  }, [value, delay]);
+  
+  return debouncedValue;
+}
+
+   b. Custom useAsync Hook
+
+function useAsync(asyncFunction, immediate = true) {
+  const [status, setStatus] = useState('idle');
+  const [value, setValue] = useState(null);
+  const [error, setError] = useState(null);
+  
+  const execute = useCallback(() => {
+    setStatus('pending');
+    setValue(null);
+    setError(null);
+    
+    return asyncFunction()
+      .then(response => {
+        setValue(response);
+        setStatus('success');
+      })
+      .catch(error => {
+        setError(error);
+        setStatus('error');
+      });
+  }, [asyncFunction]);
+  
+  useEffect(() => {
+    if (immediate) {
+      execute();
+    }
+  }, [execute, immediate]);
+  
+  return { execute, status, value, error };
+}
+
+
+// Important
+// Practice implementing common JS methods from scratch

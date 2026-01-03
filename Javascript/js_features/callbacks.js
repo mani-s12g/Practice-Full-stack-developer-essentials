@@ -1,7 +1,9 @@
 // What is a Callback?
-// A callback is a function passed as an argument to another function, to be executed later when an async operation completes.
+// A callback is a function passed as an argument to another function, to be executed
+//  later when an async operation completes.
 // Why Callbacks?
-// JavaScript is single-threaded and non-blocking. Callbacks allow you to execute code after an async operation finishes without blocking the main thread.
+// JavaScript is single-threaded and non-blocking. Callbacks allow you to execute code
+//  after an async operation finishes without blocking the main thread.
 
 
 // Callback Example
@@ -29,4 +31,5 @@ function sayGoodbye() {
 }
 
 greet("Alice", sayGoodbye); // sayGoodbye is passed as the callback
-// In this example, sayGoodbye is a callback function passed to greet. After greet logs its message, it then calls sayGoodbye.
+// In this example, sayGoodbye is a callback function passed to greet. After greet logs its message,
+// it then calls sayGoodbye.

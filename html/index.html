@@ -61,6 +61,13 @@
         <li class="listname">first node</li>
         <li class="listname">second node</li>
       </ul>
+
+      <pre>
+This is preformatted text.
+It preserves spaces and
+line breaks exactly as they are typed.
+    Including indentation.
+</pre>
       
     </div>
 
@@ -125,7 +132,80 @@
       elements1.forEach(element => {
         console.log(element);
       });
-    </script>
+
+
+      // DOM & Tree Traversal
+      // Binary Tree Level Order Traversal
+      function levelOrder(root) {
+        if (!root) return [];
+        const result = [];
+        const queue = [root];
+        
+        while (queue.length) {
+          const levelSize = queue.length;
+          const currentLevel = [];
+          
+          for (let i = 0; i < levelSize; i++) {
+            const node = queue.shift();
+            currentLevel.push(node.val);
+            if (node.left) queue.push(node.left);
+            if (node.right) queue.push(node.right);
+          }
+          result.push(currentLevel);
+        }
+        return result;
+      }
+
+      // let loRes = levelOrder(document.body);
+      // console.log("loRes:", loRes);
+
+      // DOM Tree Traversal (BFS & DFS)
+      // BFS
+      function bfsDOM(root) {
+        if(!root) return [];
+        const result = [];
+        const queue = [root];
+
+        while(queue.length) {
+          const node = queue.shift();
+          result.push(node);
+          queue.push(...node.children)
+        }
+        return result;
+      }
+      // let bfsRes = bfsDOM(document.body);
+      // console.log("bfsRes:", bfsRes);
+
+      function dfsDOM (root, result = []) {
+        result.push(root);
+        for (let child of root.children) {
+          dfsDOM(child, result);
+        }
+        return result;
+      }
+      let dfsRes = dfsDOM(document.body);
+      console.log("dfsRes:", dfsRes);
+      
+      
+      // Find DOM Node by ClassName/ID
+      function getElementsByClassNameFn(root, className) {
+        const result = [];
+
+        function traverse (node) {
+          if (node.classList?.contains(className)) {
+            result.push(node);
+          }
+          for (let child of node.children || []) {
+            traverse(child);
+          }
+        }
+
+        traverse(root);
+        return result;
+      }
+      let gncRes = getElementsByClassNameFn(document.body, "video_author");
+      console.log("gncRes:", gncRes);
+      </script>
 
     <!-- <div class="video_preview">
       <img

@@ -1,0 +1,94 @@
+The following examples demonstrate how to use the map() function on different structures in JavaScript:
+1. Standard JavaScript Array (Direct Call)
+This is the most common and direct way to use map().
+javascript
+const numbers = [10, 20, 30, 40];
+
+// Example: Halve every number in the array
+const halvedNumbers = numbers.map(function(number) {
+    return number / 2;
+});
+
+console.log(halvedNumbers);
+// Output: [5, 10, 15, 20]
+Use code with caution.
+
+2. NodeList (Array-Like Object, via Array.from())
+This example runs in a web browser environment where you have access to the Document Object Model (DOM).
+Assuming you have the following HTML:
+html
+<select id="fruit-select">
+    <option value="apple">Apple</option>
+    <option value="banana">Banana</option>
+    <option value="cherry">Cherry</option>
+</select>
+Use code with caution.
+
+javascript
+// In a browser console:
+const options = document.querySelectorAll('#fruit-select option');
+
+// options is a NodeList, which is array-like but lacks the map method directly.
+console.log(typeof options); // Output: 'object' (but acts like a list)
+
+// Use Array.from() to convert it into a real Array and map simultaneously
+const optionValues = Array.from(options).map(optionElement => {
+    return optionElement.value;
+});
+
+console.log(optionValues);
+// Output: ['apple', 'banana', 'cherry']
+Use code with caution.
+
+3. HTMLCollection (Array-Like Object, via Array.prototype.map.call())
+This is an older, but effective way to borrow the map method for array-like objects.
+Assuming you have this HTML:
+html
+<div class="item">Item A</div>
+<div class="item">Item B</div>
+Use code with caution.
+
+javascript
+// In a browser console:
+const divs = document.getElementsByClassName('item');
+
+// divs is an HTMLCollection. We borrow the map method from the Array prototype.
+const divTexts = Array.prototype.map.call(divs, function(divElement) {
+    return divElement.textContent;
+});
+
+console.log(divTexts);
+// Output: ['Item A', 'Item B']
+Use code with caution.
+
+4. String (Array-Like Object, via Array.prototype.map.call())
+Strings can be mapped character by character.
+javascript
+const word = "JavaScript";
+
+// We treat the string as an array of characters
+const uppercaseChars = Array.prototype.map.call(word, function(char) {
+    return char.toUpperCase();
+});
+
+console.log(uppercaseChars);
+// Output: ['J', 'A', 'V', 'A', 'S', 'C', 'R', 'I', 'P', 'T']
+Use code with caution.
+
+5. Set (Iterable, via Array.from())
+A Set stores unique values. To map() a Set, you must convert it to an array first using Array.from().
+javascript
+const uniqueIDs = new Set([101, 105, 204]);
+
+// Map the IDs into full status strings
+const statusStrings = Array.from(uniqueIDs).map(id => {
+    return `ID-${id} Status: Active`;
+});
+
+console.log(statusStrings);
+// Output: ['ID-101 Status: Active', 'ID-105 Status: Active', 'ID-204 Status: Active']
+Use code with caution.
+
+
+
+
