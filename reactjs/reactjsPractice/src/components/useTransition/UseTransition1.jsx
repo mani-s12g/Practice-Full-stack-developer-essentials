@@ -10,16 +10,17 @@ function UseTransition1() {
   // useTransition gives us "isPending" and "startTransition"
   const [isPending, startTransition] = useTransition();
 
-  //   const handleChange = (e) => {
-  //     const value = e.target.value;
-  //     setQuery(value);
-  //     const filtered = items.filter((x) =>
-  //       x.toLowerCase().includes(value.toLowerCase())
-  //     );
-  //     setFiltered(filtered);
-  //   };
+  // const handleChange = (e) => {
+  //   const value = e.target.value;
+  //   setQuery(value);
+  //   const filtered = items.filter((x) =>
+  //     x.toLowerCase().includes(value.toLowerCase())
+  //   );
+  //   setFiltered(filtered);
+  // };
 
   // non-urgent update → filtering can be deferred
+  // handleChangeUsingTransition
   const hCUsingTransition = (e) => {
     const value = e.target.value;
     setQuery(value); // urgent update → input stays responsive
@@ -42,7 +43,7 @@ function UseTransition1() {
         placeholder="Search items..."
       />
 
-      {isPending && <p>Loading...</p> }
+      {isPending && <p>Loading...</p>}
       <ul>
         {filtered.map((item) => (
           <li key={item}>{item}</li>

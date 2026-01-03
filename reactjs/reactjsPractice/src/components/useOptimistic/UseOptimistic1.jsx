@@ -1,6 +1,4 @@
-import { startTransition } from "react";
-import { useOptimistic } from "react";
-import { useState } from "react";
+import { useState, startTransition, useOptimistic } from "react";
 
 function UseOptimistic1() {
   const [input, setInput] = useState("");
@@ -14,13 +12,13 @@ function UseOptimistic1() {
     // addOptimisticTodo(newTodo); // Optimistic update
     // Wrap the optimistic update inside startTransition
     startTransition(() => {
-    //   addOptimisticTodo(newTodo);
-      addOptimisticTodo({...newTodo, pending: true});
+      //   addOptimisticTodo(newTodo);
+      addOptimisticTodo({ ...newTodo, pending: true });
     });
     // Simulate server delay
     await new Promise((res) => setTimeout(res, 1000));
     // After confirmation, update the real todos
-    setTodos((prev) => [...prev, {...newTodo, pending: false}]);
+    setTodos((prev) => [...prev, { ...newTodo, pending: false }]);
   };
 
   const handleAdd = () => {
@@ -95,8 +93,8 @@ function UseOptimistic1() {
                     onChange={() => toggleCompleted(ele.id)}
                   /> */}
                   {ele.completed ? <strike>{ele.text}</strike> : ele.text}
-                  {/* <button onClick={() => handleDelete(ele.id)}>DELETE</button> */}
-                  {ele.pending && <p>(Adding...)</p> }
+                  <button onClick={() => handleDelete(ele.id)}>DELETE</button>
+                  {ele.pending && <p>(Adding...)</p>}
                 </li>
               );
             })}
@@ -125,21 +123,19 @@ function UseOptimistic1() {
 
 export default UseOptimistic1;
 
-// UseOptimistic1.jsx:14 An optimistic state update occurred outside a transition or action. To fix, move the update to an action, or wrap with startTransition.
+// UseOptimistic1.jsx:14 An optimistic state update occurred outside a transition or action.
+// To fix, move the update to an action, or wrap with startTransition.
 
 // That warning is coming from React’s useOptimistic API design:
 
-// ⚠️ React requires that optimistic updates happen inside a transition (startTransition) or an action (like a form action or useActionState callback).
+// ⚠️ React requires that optimistic updates happen inside a transition (startTransition) or
+// an action (like a form action or useActionState callback).
 
 // In your code, we directly called addOptimisticTodo(newTodo) in createTodo, so React complains.
 
 
 // 🔹 Why startTransition?
-
 // Optimistic updates are considered non-urgent (they might be rolled back).
-
 // startTransition tells React: “run this update as a transition, not urgent UI”.
-
 // That’s why React enforces wrapping, so it can handle rollback + concurrency correctly.
-
 // ✅ With this change, the warning will disappear and your optimistic todo app will work smoothly.

@@ -2,16 +2,24 @@ import React, { useState, useCallback } from "react";
 
 // React.memo prevents child re-renders when props haven’t changed.
 // when received new function prop child will render
+
+// ❌ Without React.memo
 // function Child({ onClick }) {
 //   console.log("Child rendered !!");
 //   return <button onClick={onClick}>Click Me</button>;
 // };
 
-const Child = React.memo(function child({onClick}) {
-  console.log("Child rendered!");
+// ✅ With React.memo
+const Child = React.memo(function Child({ onClick }) {
+  console.log("Child rendered! & re-created");
   return <button onClick={onClick}>Click Me</button>
 })
 
+// or
+// const Child = React.memo(({ onClick }) => {
+// console.log("Child rendered!");
+// return <button onClick={onClick}>Click Me</button>
+// })
 export default function UseCallback() {
   const [count, setCount] = useState(0);
   const [text, setText] = useState("");
@@ -19,17 +27,22 @@ export default function UseCallback() {
   // ❌ Without useCallback
   // Every render creates a new function instance
   // function is same, re-calculates same thing every time so using useCallback to prevent re-calculations and re-renders
-  // const handleClick = () => setCount(count + 1);
-  // ✅ With useCallback
-  const handleClick = useCallback(() => {
-    setCount((prev) => prev + 1);
-  }, []); // depends on nothing, so it stays the same function instance
+  // const handleClick = () => {
+  //   setCount(count + 1)
+  //   console.log("set count is running...")
+  // };
 
-//   Function is re-created whenever either count or text changes.
-// Useful if your function needs the latest values from multiple states/props.
-//   const handleClick = useCallback(() => {
-//   console.log("Count:", count, "Text:", text);
-// }, [count, text]);
+  // ✅ With useCallback
+  // const handleClick = useCallback(() => {
+  //   setCount((prev) => prev + 1);
+  // }, []); // depends on nothing, so it stays the same function instance
+
+  //   Function is re-created whenever either count or text changes.
+  // Useful if your function needs the latest values from multiple states/props.
+  const handleClick = useCallback(() => {
+    console.log("Count:", count, "Text:", text);
+    setCount((prev) => prev + 1);
+  }, [count]);
 
   return (
     <div>

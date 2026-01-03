@@ -26,20 +26,21 @@ function SearchableList({ itemsProp }) {
   // }, [itemsProp, query]);
 
   // No useMemo: this will run on every render
-  console.log("SearchableList re-rendered with query:", query);
-  // const filtered = itemsProp.filter(x => x.item.toLowerCase().includes(query.toLowerCase()));
+  // console.log("re-rendered with count");
+  // const filtered = itemsProp.filter(x => {
+  //   console.log("filtering...")
+  //   return x.item.toLowerCase().includes(query.toLowerCase())
+  // });
 
   const filtered = useMemo(() => {
     console.log("Filtering...");
-    return itemsProp.filter((x) =>
-      x.item.toLowerCase().includes(query.toLowerCase())
-    );
+    return itemsProp.filter((x) => x.item.toLowerCase().includes(query.toLowerCase()));
   }, [itemsProp, query]);
 
   return (
     <div>
       <h3>Count: {count}</h3>
-      <button onClick={() => setCount(count + 1)}>Click Me</button>
+      <button onClick={() => setCount(c => c + 1)}>Click Me</button>
       <input
         type="text"
         value={query}

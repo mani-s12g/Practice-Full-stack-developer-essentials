@@ -3,6 +3,7 @@ import { useEffect } from "react";
 
 function UseRef() {
   const inputRef = useRef(null);
+  
   const focusInput = () => {
     console.log(inputRef, "inputRef  ref object");
     inputRef.current.focus(); // direct DOM access
@@ -59,7 +60,8 @@ export default UseRef;
 // Each of these lines is an explicit command telling the browser how to construct and modify the page.
 
 // Comparison with a declarative approach
-// Using a declarative framework like React, the same process is abstracted away. You simply declare what you want the UI to look like, and the framework figures out the most efficient way to achieve that result.
+// Using a declarative framework like React, the same process is abstracted away. You simply declare
+//  what you want the UI to look like, and the framework figures out the most efficient way to achieve that result.
 // Declarative React example:
 // javascript
 // function App() {
@@ -69,7 +71,8 @@ export default UseRef;
 //     </button>
 //   );
 // }
-// Here, you are not manually creating, setting, or appending elements. Instead, you declare the desired UI using JSX, and React handles the imperative DOM operations behind the scenes.
+// Here, you are not manually creating, setting, or appending elements. Instead, you declare the desired UI using JSX,
+//  and React handles the imperative DOM operations behind the scenes.
 
 // When to use imperative DOM access ?
 // Even in modern, declarative frameworks, imperative access is sometimes necessary for specific tasks, such as:

@@ -15,6 +15,8 @@ function UseRef2() {
   //   };
   const start = () => {
     // console.log("start called");
+    // if(intervalRef.current !== null) return;
+    // or call stop()
     stop(); // clears existing timer if any - ensure no duplicate timers
     intervalRef.current = setInterval(() => {
       setSeconds((s) => s + 1);
@@ -28,6 +30,11 @@ function UseRef2() {
     // clearInterval(timer); // wont work (X)
   };
 
+  const reset = () => {
+    stop();
+    setSeconds(0);
+  }
+
   useEffect(() => {
     return () => stop(); // cleanup (timers, etc,.) on unmount
   }, []);
@@ -37,6 +44,7 @@ function UseRef2() {
       <p>Seconds: {seconds}</p>
       <button onClick={start}>start timer</button>
       <button onClick={stop}>stop timer</button>
+      <button onClick={reset}>reset timer</button>
     </>
   );
 }

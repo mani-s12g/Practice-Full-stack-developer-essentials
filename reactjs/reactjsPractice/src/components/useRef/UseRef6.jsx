@@ -3,21 +3,21 @@ import { useEffect } from 'react';
 import { useRef } from 'react';
 import { useState } from 'react';
 
-function Chat({messages}) {
+function Chat({ messages }) {
     const bottomRef = useRef(null);
 
     useEffect(() => {
-        bottomRef.current?.scrollIntoView({behavior: "smooth"});
+        bottomRef.current?.scrollIntoView({ behavior: "smooth" });
     }, [messages]);
 
-    return(
+    return (
         <>
-        <div>
-            {messages?.map((msg, i) =>  
-            <p key={i} >{msg}</p>
-            )}
-        </div>
-        <div ref={bottomRef} />
+            <div style={{ height: "200px", overflowY: "scroll" }}>
+                {messages?.map((msg, i) =>
+                    <p key={i} >{msg}</p>
+                )}
+            </div>
+            <div ref={bottomRef} />
         </>
     )
 }
@@ -27,18 +27,18 @@ function UseRef6() {
     const [messages, setMessages] = useState([]);
 
     const sendMessage = () => {
-        if(text.trim()) {
+        if (text.trim()) {
             setMessages(m => [...m, text.trim()]);
             setText("");
         }
     }
     return (
-    <div>
-        <textarea value={text} onChange={(e) => setText(e.target.value)} placeholder='Type Message'></textarea>
-        <button onClick={sendMessage}>Send Message</button>
-        <Chat messages={messages} />
-    </div>
-  )
+        <div>
+            <textarea value={text} onChange={(e) => setText(e.target.value)} placeholder='Type Message'></textarea>
+            <button onClick={sendMessage}>Send Message</button>
+            <Chat messages={messages} />
+        </div>
+    )
 }
 
 export default UseRef6;
@@ -56,4 +56,4 @@ export default UseRef6;
 
 // Integrating with third-party libraries (Chart.js, Three.js, Leaflet).
 
-// Improving UX (auto-focus, scroll-to-bottom, remembering previous state).
+// Improving UX (auto-focus, scroll-to-bottom, scroll to top, remembering previous state).

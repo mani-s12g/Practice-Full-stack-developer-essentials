@@ -1,0 +1,93 @@
+To prevent stale API calls in React and ensure only the latest data updates the UI, the AbortController API can be used to cancel previous, outdated requests. This is particularly useful in scenarios like search bars where a user might type quickly, triggering multiple API calls before the previous ones have completed. 
+Here's a common approach using useEffect and AbortController: 
+
+• Initialize AbortController: Inside your functional component, within the useEffect hook, create a new AbortController instance. This should happen on each re-render where the dependencies of the useEffect change (e.g., a search query). 
+
+    import React, { useState, useEffect, useRef } from 'react';
+
+    const MyComponent = () => {
+      const [query, setQuery] = useState('');
+      const [data, setData] = useState(null);
+      const abortControllerRef = useRef(null); // Use useRef to persist the controller
+
+      useEffect(() => {
+        // Abort any previous pending request
+        if (abortControllerRef.current) {
+          abortControllerRef.current.abort();
+        }
+
+        const controller = new AbortController();
+        abortControllerRef.current = controller;
+        const signal = controller.signal;
+
+        const fetchData = async () => {
+          try {
+            const response = await fetch(`https://api.example.com/search?q=${query}`, { signal });
+            const result = await response.json();
+            setData(result);
+          } catch (error) {
+            if (error.name === 'AbortError') {
+              console.log('Fetch aborted');
+            } else {
+              console.error('Error fetching data:', error);
+            }
+          }
+        };
+
+        if (query) { // Only fetch if there's a query
+          fetchData();
+        }
+
+        // Cleanup function: abort the request when the component unmounts or dependencies change
+        return () => {
+          if (abortControllerRef.current) {
+            abortControllerRef.current.abort();
+          }
+        };
+      }, [query]); // Re-run effect when query changes
+
+      return (
+        <div>
+          <input
+            type="text"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Search..."
+          />
+          {data && (
+            <pre>{JSON.stringify(data, null, 2)}</pre>
+          )}
+        </div>
+      );
+    };
+
+    export default MyComponent;
+
+• Pass signal to fetch: When making your fetch request, pass the signal property from your AbortController to the fetch options. 
+
+    const response = await fetch(`https://api.example.com/search?q=${query}`, { signal });
+
+• Handle AbortError: Wrap your fetch call in a try-catch block. If the request is aborted, the catch block will receive an AbortError. You can handle this gracefully, for example, by logging it without treating it as a critical error. 
+
+    try {
+      // ... fetch logic ...
+    } catch (error) {
+      if (error.name === 'AbortError') {
+        console.log('Fetch aborted');
+      } else {
+        console.error('Error fetching data:', error);
+      }
+    }
+
+• Cleanup Function: Return a cleanup function from useEffect. This function will be executed when the component unmounts or when the useEffect dependencies change (before the effect runs again). Inside this cleanup, call abortControllerRef.current.abort() to cancel any pending requests. This prevents memory leaks and ensures that no outdated requests try to update the state of an unmounted component. 
+
+    return () => {
+      if (abortControllerRef.current) {
+        abortControllerRef.current.abort();
+      }
+    };
+
+By following these steps, you effectively manage API requests, ensuring that only the results from the most recent and relevant call are processed and displayed in your React application. 
+
+AI responses may include mistakes.
+
