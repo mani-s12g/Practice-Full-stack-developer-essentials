@@ -16,7 +16,7 @@ import UseTransition1 from "./components/useTransition/UseTransition1.jsx";
 import UseDeferredValue1 from "./components/useDefferedValue/UseDeferredValue1.jsx";
 import UseFormStatus1 from "./components/useFormStatus/UseFormStatus1.jsx";
 import UseOptimistic1 from "./components/useOptimistic/UseOptimistic1.jsx";
-import CustomHookForAPI from "./components/customHooks/customHookForAPI.jsx";
+// import CustomHookForAPI from "./components/customHooks/customHookForAPI.jsx";
 import Mistake1 from "./components/mistakes/Mistake1.jsx";
 import UseCallback1 from "./components/useCallback/UseCallback1.jsx"
 import DataFetcher from "./components/useCallback/DataFetcher.jsx";
@@ -50,7 +50,7 @@ function App() {
 
       {/* <Mistake1 /> */}
 
-      {/* <StaleClosuresUseState /> */}
+      <StaleClosuresUseState />
       {/* <StaleClosuresUseEffect /> */}
       {/* <ClosuresWithUseRef /> */}
     </>

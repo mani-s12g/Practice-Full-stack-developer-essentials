@@ -26,7 +26,8 @@ export default function UseCallback() {
 
   // ❌ Without useCallback
   // Every render creates a new function instance
-  // function is same, re-calculates same thing every time so using useCallback to prevent re-calculations and re-renders
+  // function is same, re-calculates same thing every time so using useCallback to 
+  // prevent re-calculations and re-renders
   // const handleClick = () => {
   //   setCount(count + 1)
   //   console.log("set count is running...")

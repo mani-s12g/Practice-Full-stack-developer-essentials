@@ -1,6 +1,7 @@
 const arr1 = [0, 1, 2, [3, 4]];
 
 console.log("arr1.flat() - ", arr1.flat());
+console.log("ori", arr1)
 // expected output: Array [0, 1, 2, 3, 4]
 
 const arr2 = [0, 1, [2, [3, [4, 5]]]];
@@ -26,7 +27,7 @@ function flatten(arr) {
 }
 
 // console.log("flatten([1, [2, [3, 4]], 5]) - ", flatten([1, [2, [3, 4]], 5]));
-console.log("flatten", flatten([1, 2, [3, 4, [6, 7, [8, 9, 10, [11, 12]]]]]));
+console.log("flatten reduce", flatten([1, 2, [3, 4, [6, 7, [8, 9, 10, [11, 12]]]]]));
 
 
 // `Array.isArray(val)` is a **built-in JavaScript method** that checks whether the given value (`val`) is an **array** or not.
@@ -77,3 +78,29 @@ console.log("flatten", flatten([1, 2, [3, 4, [6, 7, [8, 9, 10, [11, 12]]]]]));
 // `Array.isArray` → **built-in static method** that returns `true` if the given value is an array, `false` otherwise.
 
 // Do you want me to also compare it with the older approach (`instanceof Array`) and explain why `Array.isArray` is more reliable?
+
+
+
+function flattenArray(arr) {
+  const result = [];
+  function helper(input) {
+    for (let i = 0; i < input.length; i++) {
+      if (Array.isArray(input[i])) {
+        helper(input[i]);
+      } else {
+        result.push(input[i]);
+      }
+    }
+  }
+  helper(arr);
+  return result;
+}
+
+console.log("flatten helper", flattenArray([1, 2, [3, 4, [6, 7, [8, 9, 10, [11, 12]]]]]));
+
+
+// Time Complexity
+// O(n) where n is the total number of elements including nested elements
+
+// Space Complexity
+// O(n) for the output array and recursive call stack

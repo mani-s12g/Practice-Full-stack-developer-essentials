@@ -8,7 +8,8 @@ function UseRef1() {
 
   useEffect(() => {
     console.log("useEffect useRef");
-    prevCount.current = count; // updates after dom has rendered.. so whatever updated will apppear on next render(hence previous)
+    prevCount.current = count; // updates after dom has rendered.. 
+    // so whatever updated will apppear on next render(hence previous)
   }, [count]);
   // prevCount.current = count; // updates same time as count
 
