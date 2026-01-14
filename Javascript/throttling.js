@@ -20,3 +20,19 @@ const throttling = function (fn, limit) {
 }
 
 const efficientFn = throttling(expensiveFn, 1000);
+
+
+// modern 
+const throttle = (fn, limit) => {
+  let isWaiting = false;
+
+  return function(...args) {
+    if (!isWaiting) {
+      fn.apply(this, args);
+      isWaiting = true;
+      setTimeout(() => {
+        isWaiting = false;
+      }, limit);
+    }
+  };
+};

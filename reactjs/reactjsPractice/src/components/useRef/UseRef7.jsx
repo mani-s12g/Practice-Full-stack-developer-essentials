@@ -14,7 +14,7 @@ function Child({ ref }) {
     },
   }));
 
-  return <input type="text" ref={inputRef} />;
+  return <input type="text" placeholder="child search..." ref={inputRef} />;
 }
 
 // Parent component
@@ -24,6 +24,7 @@ function UseRef7() {
   return (
     <div>
       <Child ref={fancyInputRef} />
+      <h3>Parent buttons</h3>
       <button onClick={() => fancyInputRef.current.focus()}>Focus</button>
       <button onClick={() => fancyInputRef.current.clear()}>Clear</button>
     </div>

@@ -109,13 +109,13 @@ for (var i = 0; i < 5; i++) {
 // 
 
 const digits = 5;
-const arr = new Array(digits);
+// const arr = new Array(digits);
 
-// console.log(new Array(digits))
+console.log(new Array(digits))
 
-for (let index = 0; index < arr.length; index++) {
+// for (let index = 0; index < arr.length; index++) {
   // console.log(arr[index], "array[index]"); 
-}
+// }
 
 // arr.forEach(x => {
 //   console.log(x)
@@ -129,18 +129,18 @@ for (let index = 0; index < arr.length; index++) {
 // }
 
 // arr.fill(undefined).forEach((element, index) => {
-//     console.log(`Index ${index}:`, element);
+    // console.log(`Index ${index}:`, element);
 // });
 
-arr.fill("").forEach((element, index) => {
+// arr.fill("").forEach((element, index) => {
     // console.log(`Index ${index}:`, element);
-});
+// });
 
 
 
 const arr1 = Array.from({length: 5});
-console.log(arr1)
+// console.log(arr1)
 
-arr.forEach((element, index) => {
-    console.log(`Index ${index}:`, element);
-});
+// arr.forEach((element, index) => {
+    // console.log(`Index ${index}:`, element);
+// });
