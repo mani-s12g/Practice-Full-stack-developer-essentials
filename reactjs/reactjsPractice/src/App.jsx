@@ -23,6 +23,8 @@ import DataFetcher from "./components/useCallback/DataFetcher.jsx";
 import StaleClosuresUseState from "./components/ReactHooksClosures/StaleClosuresUseState.jsx";
 import StaleClosuresUseEffect from "./components/ReactHooksClosures/StaleClosuresUseEffect.jsx";
 import ClosuresWithUseRef from "./components/ReactHooksClosures/ClosuresWithPerformOptHooks.jsx";
+import Example1 from "./components/situations_based_practice/Example1.jsx";
+import Example2 from "./components/situations_based_practice/Example2.jsx";
 
 function App() {
   return (
@@ -41,7 +43,7 @@ function App() {
       {/* <UseRef5 /> */}
       {/* <UseRef6 /> */}
       {/* <UseRef7 /> */}
-      {/* <UseId1 /> */}
+      <UseId1 />
       {/* <UseTransition1 /> */}
       {/* <UseDeferredValue1 /> */}
       {/* <UseFormStatus1 /> */}
@@ -50,9 +52,11 @@ function App() {
 
       {/* <Mistake1 /> */}
 
-      <StaleClosuresUseState />
+      {/* <StaleClosuresUseState /> */}
       {/* <StaleClosuresUseEffect /> */}
       {/* <ClosuresWithUseRef /> */}
+      {/* <Example1 /> */}
+      {/* <Example2 /> */}
     </>
   );
 }
