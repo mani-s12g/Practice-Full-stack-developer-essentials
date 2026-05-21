@@ -27,6 +27,7 @@ function UseRef2() {
     // console.log("stop called");
     clearInterval(intervalRef.current);
     intervalRef.current = null; // good hygiene
+    // console.log(intervalRef.current, "ic")
     // clearInterval(timer); // wont work (X)
   };
 

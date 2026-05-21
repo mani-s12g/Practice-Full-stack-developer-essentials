@@ -7,7 +7,7 @@ function UseRef1() {
   const prevCount = useRef(null);
 
   useEffect(() => {
-    console.log("useEffect useRef");
+    console.log(count, "useEffect useRef");
     prevCount.current = count; // updates after dom has rendered.. 
     // so whatever updated will apppear on next render(hence previous)
   }, [count]);

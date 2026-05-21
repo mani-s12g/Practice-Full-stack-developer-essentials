@@ -11,6 +11,8 @@ function UseRef5() {
     setInput(value);
 
     clearTimeout(inputRef.current); // clear previous timer
+    // inputRef.current = null; // optional - to prevent previous id
+    // console.log(inputRef.current)
     
     inputRef.current = setTimeout(() => {
       console.log("Searching for:", value); // simulate API call
