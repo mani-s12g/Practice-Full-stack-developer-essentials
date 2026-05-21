@@ -28,6 +28,7 @@ export default function StaleClosuresUseState() {
             // console.log(`Count in interval: ${count}`);
             console.log(`Count in interval ref: ${latestCountRef.current}`);
         }, 1000);
+        console.log("rendered..")
 
         return () => clearInterval(intervalId);
     }, []); // Empty dependency array means this effect runs only once
