@@ -1200,18 +1200,18 @@ console.log("uni2", uni2);
 
 // 
 // Render Grouped Users by dept
-{
-    Object.entries(groupByDept).map(([dept, employees]) => (
-        <div key={dept}>
-            <h2>{dept}</h2>
-            <ul>
-                {employees.map((employee) => (
-                    <li key={employee.id}>{employee.name}</li>
-                ))}
-            </ul>
-        </div>
-    ))
-}
+// {
+//     Object.entries(groupByDept).map(([dept, employees]) => (
+//         <div key={dept}>
+//             <h2>{dept}</h2>
+//             <ul>
+//                 {employees.map((employee) => (
+//                     <li key={employee.id}>{employee.name}</li>
+//                 ))}
+//             </ul>
+//         </div>
+//     ))
+// }
 
 // 🔁 React Best Practice (useMemo)
 // Never recompute grouping on every render.

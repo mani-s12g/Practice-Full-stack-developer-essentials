@@ -1,6 +1,6 @@
 import Parent from "./components/Parent";
 // import "./App.css"
-import UseReducerEx from "./components/useReducerEx";
+import UseReducerEx from "./components/UseReducerEx";
 import UseMemo from "./components/UseMemo";
 import UseRef from "./components/UseRef";
 import UseRef1 from "./components/useRef/UseRef1.jsx";
