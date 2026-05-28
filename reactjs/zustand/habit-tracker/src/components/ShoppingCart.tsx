@@ -54,6 +54,7 @@ const PRODUCTS: Product[] = [
 const ShoppingCart: React.FC = () => {
     const [isCartOpen, setIsCartOpen] = useState(false);
     const { totalItems, totalPrice } = useCart();
+    
     return (
         <div className="min-h-screen bg-gray-100">
       {/* Header */}
