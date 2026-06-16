@@ -18,7 +18,7 @@ import UseFormStatus1 from "./components/useFormStatus/UseFormStatus1.jsx";
 import UseOptimistic1 from "./components/useOptimistic/UseOptimistic1.jsx";
 // import CustomHookForAPI from "./components/customHooks/customHookForAPI.jsx";
 import Mistake1 from "./components/mistakes/Mistake1.jsx";
-import UseCallback1 from "./components/useCallback/UseCallback1.jsx"
+import UseCallback1 from "./components/useCallback/UseCallback1.jsx";
 import DataFetcher from "./components/useCallback/DataFetcher.jsx";
 import StaleClosuresUseState from "./components/ReactHooksClosures/StaleClosuresUseState.jsx";
 import StaleClosuresUseEffect from "./components/ReactHooksClosures/StaleClosuresUseEffect.jsx";
@@ -26,6 +26,7 @@ import ClosuresWithUseRef from "./components/ReactHooksClosures/ClosuresWithPerf
 import Example1 from "./components/situations_based_practice/Example1.jsx";
 import Example2 from "./components/situations_based_practice/Example2.jsx";
 import ForLocalStorage from "./components/ForLocalStorage.jsx";
+import DebouncedSearch from "./components/search/DebouncedSearch.jsx";
 
 function App() {
   return (
@@ -53,13 +54,14 @@ function App() {
 
       {/* <Mistake1 /> */}
 
-      <StaleClosuresUseState />
+      {/* <StaleClosuresUseState /> */}
       {/* <StaleClosuresUseEffect /> */}
       {/* <ClosuresWithUseRef /> */}
       {/* <Example1 /> */}
       {/* <Example2 /> */}
 
       {/* <ForLocalStorage /> */}
+      <DebouncedSearch />
     </>
   );
 }
