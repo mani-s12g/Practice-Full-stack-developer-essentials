@@ -115,6 +115,17 @@ const arr2 = [
     { name: "lop", age: 25 },
 ];
 
+// remove dulicates using filter and set
+// const ss = new Set();
+// const dd = arr2.filter((x) => {
+//     if(!ss.has(x.age)) {
+//         ss.add(x.age);
+//         return true;
+//     }
+//     return false;
+// })
+// console.log("dd", dd)
+
 // const set1 = new Set();
 // const f = []
 // for(const i of arr2) {
@@ -139,18 +150,27 @@ const arr2 = [
 //     })
 // )
 
-console.log(arr2.sort((a,b) => a.age - b.age));
-
-
-
+// sorting
 // console.log(
-//     "g",
+//     "sorting",
+//     arr2.sort((a,b) => a.age - b.age)
+// );
+
+// console.log("sorting by name", arr2.sort((a, b) => a.name.localeCompare(b.name)));
+
+
+// group by age using reduce
+// console.log(
+//     "grouping",
 //     arr2.reduce((acc, curr) => {
 //         (acc[curr.age] = acc[curr.age] || []).push(curr); 
 //         return acc;
 //     }, {})
 // )
 
+// group by age using built in Object.groupBy
 // console.log(Object.groupBy(arr2, u => u.age))
+
+// group by name using built in Object.groupBy
 // console.log(Object.groupBy(arr2, u => u.name))
 
